@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//create the model Schema
 const detailSchema = mongoose.Schema(
   {
     name: {

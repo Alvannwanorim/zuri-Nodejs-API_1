@@ -15,7 +15,8 @@ app.use(morgan("dev"));
 app.use("/api/v1/details", detailRoute);
 
 const PORT = process.env.PORT || 5000;
-
+// initialize Database connection
 connectDB();
 
+//listen to server
 app.listen(PORT, () => console.log(`Server running on port:${PORT}`));
