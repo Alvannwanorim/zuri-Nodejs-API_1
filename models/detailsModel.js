@@ -6,6 +6,7 @@ const detailSchema = mongoose.Schema(
       type: String,
       required: true,
       required: true,
+      trim: true,
     },
     email: {
       type: String,

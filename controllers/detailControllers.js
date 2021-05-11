@@ -9,7 +9,7 @@ exports.getDetails = async (req, res) => {
     if (details.length === 0) {
       return res.status(200).json({
         status: "success",
-        message: "the object is exmpty",
+        message: "This collection is exmpty",
         data: [],
       });
     }
@@ -17,6 +17,7 @@ exports.getDetails = async (req, res) => {
     res.status(200).json({
       status: "success",
       message: "Successfully obtained records",
+      totalItems: details.length,
       data: details,
     });
   } catch (error) {
@@ -26,7 +27,9 @@ exports.getDetails = async (req, res) => {
     });
   }
 };
-
+//@desc Delete  Details
+//@route DELETE /api/v1/details
+//@acess Public
 exports.getDetail = async (req, res) => {
   const id = req.params.id;
   try {
@@ -51,28 +54,28 @@ exports.getDetail = async (req, res) => {
   }
 };
 
+//@desc Create  Details
+//@route POST /api/v1/details
+//@acess Public
+
 exports.createDetails = async (req, res) => {
   const { name, country, email } = req.body;
 
   try {
-    if (!name || email || country) {
+    if (!name || !email || !country) {
       return res.status(400).json({
         status: "Create Failure",
         message:
           "name email and country are require fields, Please fill where appropriate",
       });
     }
-
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    const regResult = re.test(String(email).toLowerCase());
-
-    if (regResult === false) {
-      res.status(500).json({
+    if (name.length < 3) {
+      return res.status(400).json({
         status: "Create Failure",
-        message: "the email format is incorrect please the email and try aagin",
+        message: "name must be at least three letters long ",
       });
     }
+
     const existDetails = await Details.findOne({ email });
 
     if (existDetails) {
@@ -97,8 +100,11 @@ exports.createDetails = async (req, res) => {
   }
 };
 
+//@desc Update   Details
+//@route PUT /api/v1/details/:id
+//@acess Publics
 exports.updateDetails = async (req, res) => {
-  const id = req.params;
+  const id = req.params.id;
   try {
     const detail = await Details.findById(id);
     if (!detail) {
@@ -128,8 +134,11 @@ exports.updateDetails = async (req, res) => {
   }
 };
 
+//@desc Delete  Details
+//@route DELETE /api/v1/details/:id
+//@acess Public
 exports.deleteDetails = async (req, res) => {
-  const id = req.params;
+  const id = req.params.id;
   try {
     const detail = await Details.findById(id);
 
