@@ -5,7 +5,7 @@ const Details = require("../models/detailsModel");
 //@acess Public
 exports.getDetails = async (req, res) => {
   try {
-    const details = await Details.find({});
+    const details = await Details.find({}).select('-__v').select('-createdAt').select('-updatedAt')
     if (details.length === 0) {
       return res.status(200).json({
         status: "success",
@@ -33,7 +33,7 @@ exports.getDetails = async (req, res) => {
 exports.getDetail = async (req, res) => {
   const id = req.params.id;
   try {
-    const detail = await Details.findById(id);
+    const detail = await Details.findById(id).select('-__v');
 
     if (!detail) {
       return res.status(404).json({

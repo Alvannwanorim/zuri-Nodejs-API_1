@@ -8,7 +8,7 @@ Root demain: https://zurinodejssimpleapi.herokuapp.com
 //@route GET: https://zurinodejssimpleapi.herokuapp.com/api/v1/details/:id
 //@acess Public
 
-//@desc Craete Details
+//@desc Create Details
 //@route POST: https://zurinodejssimpleapi.herokuapp.com/api/v1/details
 //@acess Public
 
